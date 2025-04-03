@@ -10,13 +10,25 @@ const { Header } = Layout
 
 export default function NavigationBar() {
   return (
-    <Header style={{ backgroundColor: '#FFF5B8', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 122 }}>
-      <Logo />
-      <Space size="large" style={{ display: 'flex', alignItems: 'center' }}>
+    <Header
+      style={{
+        backgroundColor: '#FFF5B8',
+        padding: '0 32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: 122,
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 48 }}>
+        <Logo />
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
         <NavItems />
         <SearchBar />
         <AvatarComponent />
-      </Space>
+      </div>
     </Header>
   );
 }
