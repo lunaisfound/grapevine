@@ -4,6 +4,7 @@ import Logo from './logo';
 import NavItems from './NavItems';
 import SearchBar from './SearchBar';
 import AvatarComponent from './Avatar';
+import AccountDropdown from './AccountDropdown'; 
 import { Layout, Space } from 'antd';
 
 const { Header } = Layout
@@ -27,8 +28,8 @@ export default function NavigationBar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
         <NavItems />
         <SearchBar />
-        <AvatarComponent />
-      </div>
+        <AccountDropdown username="HelloWorld123" isBusiness={false} />
+        </div>
     </Header>
   );
 }
