@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import NavigationBar from "../components/NavigationBar";
-import DashBoard from "../components/DashBoard/DashBoard";
+import DashBoard from "./dashboard/page";
 import "./globals.css";
 
 interface LayoutProps {
