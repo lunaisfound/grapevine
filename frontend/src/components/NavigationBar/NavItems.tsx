@@ -1,46 +1,75 @@
-import { EnvironmentOutlined, BookOutlined, BellOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
-import { useState } from 'react';
+import {
+  EnvironmentOutlined,
+  BookOutlined,
+  BellOutlined,
+} from "@ant-design/icons";
+import { Menu } from "antd";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function NavItems() {
-  const [current, setCurrent] = useState('dashboard');
+  const [current, setCurrent] = useState("dashboard");
 
   const items = [
     {
-      key: 'dashboard',
+      key: "dashboard",
       label: (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <EnvironmentOutlined style={{ fontSize: 20, color: current === 'dashboard' ? '#61572D' : '#000' }} />
-          <span
+        <Link href="../app/DashBoard/Dashboard.tsx">
+          <div
             style={{
-              fontSize: 12,
-              lineHeight: '16px',
-              fontWeight: 500,
-              color: '#3d361c',
-              marginTop: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            Dashboard
-          </span>
-        </div>
+            <EnvironmentOutlined
+              style={{
+                fontSize: 20,
+                color: current === "dashboard" ? "#61572D" : "#000",
+              }}
+            />
+            <span
+              style={{
+                fontSize: 12,
+                lineHeight: "16px",
+                fontWeight: 500,
+                color: "#3d361c",
+                marginTop: 4,
+              }}
+            >
+              Dashboard
+            </span>
+          </div>
+        </Link>
       ),
       style: {
         borderRadius: 20,
-        padding: '4px 12px',
-        backgroundColor: current === 'dashboard' ? '#e7dfb9' : 'transparent',
+        padding: "4px 12px",
+        backgroundColor: current === "dashboard" ? "#e7dfb9" : "transparent",
       },
     },
     {
-      key: 'saved',
+      key: "saved",
       label: (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <BookOutlined style={{ fontSize: 20, color: current === 'saved' ? '#61572D' : '#000' }} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <BookOutlined
+            style={{
+              fontSize: 20,
+              color: current === "saved" ? "#61572D" : "#000",
+            }}
+          />
           <span
             style={{
               fontSize: 12,
-              lineHeight: '16px',
+              lineHeight: "16px",
               fontWeight: 500,
-              color: '#3d361c',
+              color: "#3d361c",
               marginTop: 4,
             }}
           >
@@ -50,21 +79,32 @@ export default function NavItems() {
       ),
       style: {
         borderRadius: 20,
-        padding: '4px 12px',
-        backgroundColor: current === 'saved' ? '#e7dfb9' : 'transparent',
+        padding: "4px 12px",
+        backgroundColor: current === "saved" ? "#e7dfb9" : "transparent",
       },
     },
     {
-      key: 'forum',
+      key: "forum",
       label: (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <BellOutlined style={{ fontSize: 20, color: current === 'forum' ? '#61572D' : '#000' }} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <BellOutlined
+            style={{
+              fontSize: 20,
+              color: current === "forum" ? "#61572D" : "#000",
+            }}
+          />
           <span
             style={{
               fontSize: 12,
-              lineHeight: '16px',
+              lineHeight: "16px",
               fontWeight: 500,
-              color: '#3d361c',
+              color: "#3d361c",
               marginTop: 4,
             }}
           >
@@ -74,8 +114,8 @@ export default function NavItems() {
       ),
       style: {
         borderRadius: 20,
-        padding: '4px 12px',
-        backgroundColor: current === 'forum' ? '#e7dfb9' : 'transparent',
+        padding: "4px 12px",
+        backgroundColor: current === "forum" ? "#e7dfb9" : "transparent",
       },
     },
   ];
@@ -87,9 +127,9 @@ export default function NavItems() {
       onClick={(e) => setCurrent(e.key)}
       items={items}
       style={{
-        background: 'transparent',
-        borderBottom: 'none',
-        display: 'flex',
+        background: "transparent",
+        borderBottom: "none",
+        display: "flex",
         gap: 16,
       }}
     />
