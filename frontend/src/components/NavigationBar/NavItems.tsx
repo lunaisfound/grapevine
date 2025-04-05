@@ -14,7 +14,7 @@ export default function NavItems() {
     {
       key: "dashboard",
       label: (
-        <Link href="../app/DashBoard/Dashboard.tsx">
+        <Link href="../DashBoard/DashBoard.tsx">
           <div
             style={{
               display: "flex",
