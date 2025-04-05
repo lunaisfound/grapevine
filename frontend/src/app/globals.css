@@ -40,3 +40,18 @@ a {
     color-scheme: dark;
   }
 }
+
+.account-dropdown .ant-dropdown-menu-item {
+  padding: 12px 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.account-dropdown .ant-dropdown-menu {
+  margin-top: 12px;
+  background-color: #FFF7BA !important;
+  border-radius: 16px;
+  padding: 12px;
+  width: 260px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
