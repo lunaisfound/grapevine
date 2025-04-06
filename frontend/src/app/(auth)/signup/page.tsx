@@ -1,6 +1,6 @@
 "use client";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { Form, Input, Button, Row, Col, Typography, Layout, Alert } from "antd";
 import { useState } from "react";
@@ -9,25 +9,45 @@ import { auth } from "@/lib/firebaseConfig";
 const { Title } = Typography;
 const { Content } = Layout;
 
-const Login = () => {
+const SignUp: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleLogin = async (values: { email: string; password: string }) => {
+  const handleSignUp = async (values: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    zipCode?: string;
+  }) => {
+    setLoading(true);
+    setError(null);
+
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         values.email,
         values.password
       );
       const user = userCredential.user;
 
-      console.log("User signed in:", user);
+      console.log("User signed up:", {
+        uid: user.uid,
+        email: user.email,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        zipCode: values.zipCode,
+      });
+
+      // Save additional data to Firestore or your DB
 
       router.push("/dashboard");
     } catch (error: any) {
-      console.error("Error during login:", error.message);
+      console.error("Error during sign up:", error.message);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,7 +59,7 @@ const Login = () => {
           align="middle"
           style={{ width: "100%", height: "100vh" }}
         >
-          {/* Left - Login Form */}
+          {/* Left Side - Sign Up Form */}
           <Col
             xs={24}
             md={12}
@@ -63,7 +83,7 @@ const Login = () => {
                   width: "100%",
                 }}
               >
-                Log In for Grapevine
+                Sign Up for Grapevine
               </Title>
 
               {error && (
@@ -78,13 +98,35 @@ const Login = () => {
 
               <Form
                 layout="vertical"
-                onFinish={handleLogin}
+                onFinish={handleSignUp}
                 style={{ width: "100%", margin: "0 auto" }}
               >
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="firstName"
+                      rules={[
+                        { required: true, message: "Enter your first name" },
+                      ]}
+                    >
+                      <Input placeholder="First Name" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="lastName"
+                      rules={[
+                        { required: true, message: "Enter your last name" },
+                      ]}
+                    >
+                      <Input placeholder="Last Name" />
+                    </Form.Item>
+                  </Col>
+                </Row>
+
                 <Form.Item
                   name="email"
                   rules={[{ required: true, message: "Enter your email" }]}
-                  style={{ color: "#695A5A" }}
                 >
                   <Input placeholder="Email" />
                 </Form.Item>
@@ -94,6 +136,15 @@ const Login = () => {
                   rules={[{ required: true, message: "Enter your password" }]}
                 >
                   <Input.Password placeholder="Password" />
+                </Form.Item>
+
+                <Form.Item
+                  name="zipCode"
+                  rules={[
+                    { required: true, message: "Please enter your ZIP Code" },
+                  ]}
+                >
+                  <Input placeholder="ZIP Code" />
                 </Form.Item>
 
                 <Form.Item>
@@ -110,16 +161,15 @@ const Login = () => {
                     }}
                     loading={loading}
                   >
-                    {loading ? "Logging in..." : "LOG IN"}
+                    {loading ? "Signing up..." : "SIGN UP"}
                   </Button>
                 </Form.Item>
               </Form>
-
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
-                  Don't have an account?{" "}
-                  <a href="/signup" style={{ fontWeight: 500 }}>
-                    Sign Up
+                  Already have an account?{" "}
+                  <a href="/login" style={{ fontWeight: 500 }}>
+                    Login
                   </a>
                 </Typography.Text>
               </div>
@@ -159,4 +209,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
