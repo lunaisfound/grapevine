@@ -12,6 +12,7 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <body>
         <NavigationBar />
+        <DashBoard />
         {children}
       </body>
     </html>

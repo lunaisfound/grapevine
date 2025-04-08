@@ -5,9 +5,6 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { auth } from "@/lib/firebaseConfig";
-import { Auth, signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
 
 interface AccountDropdownProps {
   username: string;
@@ -18,17 +15,6 @@ export default function AccountDropdown({
   username,
   isBusiness,
 }: AccountDropdownProps) {
-  const router = useRouter();
-  const logout = async (auth: Auth): Promise<void> => {
-    try {
-      await signOut(auth);
-      router.push("/");
-      console.log("Logged out successfully.");
-    } catch (error) {
-      console.error("Error during logging out:", error);
-    }
-  };
-
   const items: MenuProps["items"] = [
     {
       key: "account-info",
@@ -71,11 +57,7 @@ export default function AccountDropdown({
     {
       key: "logout",
       icon: <LogoutOutlined />,
-      label: (
-        <span style={{ fontWeight: 500 }} onClick={() => logout(auth)}>
-          Log out
-        </span>
-      ),
+      label: <span style={{ fontWeight: 500 }}>Log out</span>,
     },
   ];
 
