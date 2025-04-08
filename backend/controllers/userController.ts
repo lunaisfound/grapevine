@@ -22,7 +22,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
   const userId = req.params.id;
-  const { firstName, lastName, zipCode } = req.body as User;
+  const { firstName, lastName, zipCode } = req.body;
 
   try {
     const userRef = usersCollection.doc(userId);

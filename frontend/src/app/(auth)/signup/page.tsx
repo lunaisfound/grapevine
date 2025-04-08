@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Form, Input, Button, Row, Col, Typography, Layout, Alert } from "antd";
 import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -32,15 +33,21 @@ const SignUp: React.FC = () => {
       );
       const user = userCredential.user;
 
-      console.log("User signed up:", {
-        uid: user.uid,
-        email: user.email,
+      // Save additional data to Firestore
+      const db = getFirestore();
+      await setDoc(doc(db, "users", user.uid), {
         firstName: values.firstName,
         lastName: values.lastName,
         zipCode: values.zipCode,
       });
 
-      // Save additional data to Firestore or your DB
+      console.log("User signed up:", {
+        uid: user.uid,
+        email: values.email,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        zipCode: values.zipCode,
+      });
 
       router.push("/dashboard");
     } catch (error: any) {

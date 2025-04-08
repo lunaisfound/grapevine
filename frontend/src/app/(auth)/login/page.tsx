@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Form, Input, Button, Row, Col, Typography, Layout, Alert } from "antd";
 import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
+import axios from "axios";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -24,6 +25,12 @@ const Login = () => {
       const user = userCredential.user;
 
       console.log("User signed in:", user);
+
+      const response = await axios.get(
+        `http://localhost:5000/api/users/${user.uid}`
+      );
+      const userData = response.data;
+      console.log(userData);
 
       router.push("/dashboard");
     } catch (error: any) {

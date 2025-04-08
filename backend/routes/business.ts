@@ -8,7 +8,7 @@ import {
 
 const businessRouter = express.Router();
 
-businessRouter.post('/', createBusiness);
+businessRouter.post('/:id', createBusiness);
 businessRouter.get('/:id', getBusiness);
 businessRouter.put('/:id', updateBusiness);
 businessRouter.delete('/:id', deleteBusiness);
