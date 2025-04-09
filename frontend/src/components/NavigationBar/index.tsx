@@ -28,7 +28,7 @@ export default function NavigationBar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
         <NavItems />
         <SearchBar />
-        <AccountDropdown username="HelloWorld123" isBusiness={false} />
+        <AccountDropdown username="HelloWorld123" isBusiness={true} />
         </div>
     </Header>
   );
