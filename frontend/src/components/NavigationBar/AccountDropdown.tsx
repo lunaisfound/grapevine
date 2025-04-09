@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, Dropdown, Menu } from 'antd';
 import {
   ProfileOutlined,
@@ -5,6 +7,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
+import { useRouter } from 'next/navigation';
 
 interface AccountDropdownProps {
   username: string;
@@ -15,6 +18,16 @@ export default function AccountDropdown({
   username,
   isBusiness,
 }: AccountDropdownProps) {
+  const router = useRouter();
+
+  const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
+    if (key === 'add') router.push('/addnewproduct');
+    else if (key === 'profile') router.push('/profile');
+    else if (key === 'logout') {
+      console.log('Logging out...');
+    }
+  };
+
   const items: MenuProps['items'] = [
     {
       key: 'account-info',
@@ -54,7 +67,7 @@ export default function AccountDropdown({
 
   return (
     <Dropdown
-      menu={{ items }}
+      menu={{ items, onClick: handleMenuClick }}
       trigger={['click']}
       placement="bottomRight"
       overlayClassName="account-dropdown"
