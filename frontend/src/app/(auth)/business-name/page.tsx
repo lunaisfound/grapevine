@@ -73,7 +73,7 @@ export default function BusinessNamePage() {
                   borderRadius: "8px",
                 }}
               >
-                "CONTINUE"
+                CONTINUE
               </Button>
             </Space>
           </Col>
