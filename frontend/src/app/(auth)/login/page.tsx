@@ -6,6 +6,7 @@ import { Form, Input, Button, Row, Col, Typography, Layout, Alert } from "antd";
 import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
 import axios from "axios";
+import Link from "next/link";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -125,18 +126,18 @@ const Login = () => {
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
                   Don't have an account?{" "}
-                  <a href="/signup" style={{ fontWeight: 500 }}>
+                  <Link href="/signup" style={{ fontWeight: 500 }}>
                     Sign Up
-                  </a>
+                  </Link>
                 </Typography.Text>
               </div>
 
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
                   Not a customer?{" "}
-                  <a href="" style={{ fontWeight: 500 }}>
+                  <Link href="/business-name" style={{ fontWeight: 500 }}>
                     Sign Up for Business
-                  </a>
+                  </Link>
                 </Typography.Text>
               </div>
             </div>

@@ -1,22 +1,34 @@
 "use client";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/navigation";
-import { Form, Input, Button, Row, Col, Typography, Layout, Alert } from "antd";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  Form,
+  Input,
+  Button,
+  Typography,
+  Checkbox,
+  Col,
+  Row,
+  Layout,
+  Alert,
+} from "antd";
+import { Content } from "antd/es/layout/layout";
 import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
-import Link from "next/link";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const { Title } = Typography;
-const { Content } = Layout;
 
-const SignUp: React.FC = () => {
+export default function SignupBusiness() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const businessName = searchParams.get("businessName") || "";
 
   const handleSignUp = async (values: {
+    businessNam: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -42,12 +54,11 @@ const SignUp: React.FC = () => {
         zipCode: values.zipCode,
       });
 
-      console.log("User signed up:", {
-        uid: user.uid,
-        email: values.email,
+      await setDoc(doc(db, "stores", businessName), {
         firstName: values.firstName,
         lastName: values.lastName,
         zipCode: values.zipCode,
+        owner_id: user.uid,
       });
 
       router.push("/dashboard");
@@ -67,10 +78,12 @@ const SignUp: React.FC = () => {
           align="middle"
           style={{ width: "100%", height: "100vh" }}
         >
-          {/* Left Side - Sign Up Form */}
+          {/* Sign Up Form */}
           <Col
             xs={24}
-            md={12}
+            md={22}
+            lg={20}
+            xl={18}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -80,7 +93,7 @@ const SignUp: React.FC = () => {
               paddingBottom: "2rem",
             }}
           >
-            <div style={{ maxWidth: 500, width: "100%" }}>
+            <div style={{ maxWidth: "800px", width: "100%" }}>
               <Title
                 level={2}
                 style={{
@@ -89,9 +102,10 @@ const SignUp: React.FC = () => {
                   color: " #61572D",
                   marginBottom: 32,
                   width: "100%",
+                  fontSize: "40px",
                 }}
               >
-                Sign Up for Grapevine
+                Sign Up for Grapevine Business
               </Title>
 
               {error && (
@@ -155,6 +169,26 @@ const SignUp: React.FC = () => {
                   <Input placeholder="ZIP Code" />
                 </Form.Item>
 
+                <Form.Item
+                  name="agree"
+                  valuePropName="checked"
+                  rules={[
+                    {
+                      validator: (_, value) =>
+                        value
+                          ? Promise.resolve()
+                          : Promise.reject(
+                              new Error("You must agree to the terms")
+                            ),
+                    },
+                  ]}
+                >
+                  <Checkbox>
+                    By continuing, you agree to Grapevine's Terms of Business
+                    and acknowledge our Privacy Policy.
+                  </Checkbox>
+                </Form.Item>
+
                 <Form.Item>
                   <Button
                     htmlType="submit"
@@ -169,52 +203,33 @@ const SignUp: React.FC = () => {
                     }}
                     loading={loading}
                   >
-                    {loading ? "Signing up..." : "SIGN UP"}
+                    {loading
+                      ? "Signing up..."
+                      : "SIGN UP FOR GRAPEVINE BUSINESS"}
                   </Button>
                 </Form.Item>
               </Form>
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
                   Already have an account?{" "}
-                  <Link href="/login" style={{ fontWeight: 500 }}>
+                  <a href="/login" style={{ fontWeight: 500 }}>
                     Login
-                  </Link>
+                  </a>
                 </Typography.Text>
               </div>
 
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
                   Not a customer?{" "}
-                  <Link href="" style={{ fontWeight: 500 }}>
-                    Sign Up for Business
-                  </Link>
+                  <a href="" style={{ fontWeight: 500 }}>
+                    Sign Up for Grapevine Business
+                  </a>
                 </Typography.Text>
               </div>
             </div>
-          </Col>
-
-          {/* Right - Logo */}
-          <Col
-            xs={0}
-            md={12}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              padding: "2rem",
-            }}
-          >
-            <img
-              src="/page-logo.png"
-              alt="Grapevine Logo"
-              style={{ maxWidth: "400px", width: "100%", height: "auto" }}
-            />
           </Col>
         </Row>
       </Content>
     </Layout>
   );
-};
-
-export default SignUp;
+}
