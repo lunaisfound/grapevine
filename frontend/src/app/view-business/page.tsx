@@ -18,6 +18,7 @@ import Title from "antd/es/typography/Title";
 import NavigationBar from "@/components/NavigationBar";
 import axios from "axios";
 import { getCityStateFromZip } from "../utils/zipcodeUtils";
+import BackButton from "@/components/BackButton/BackButton";
 
 const ViewBusiness = () => {
   const router = useRouter();
@@ -140,19 +141,7 @@ const ViewBusiness = () => {
           height: "100vh",
         }}
       >
-        <Button
-          type="link"
-          icon={<ArrowLeftOutlined />}
-          onClick={handleBack}
-          style={{
-            marginBottom: 16,
-            color: "#000",
-            border: "none",
-            height: 50,
-          }}
-        >
-          Back to Dashboard
-        </Button>
+        <BackButton />
 
         <Row gutter={[24, 24]}>
           <Col xs={24} md={10} lg={8}>
