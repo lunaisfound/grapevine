@@ -7,6 +7,7 @@ import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import Link from "next/link";
+import { CityState, getCityStateFromZip } from "../../utils/zipcodeUtils";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -34,12 +35,25 @@ const SignUp: React.FC = () => {
       );
       const user = userCredential.user;
 
+      // Fetch city and state from the ZIP code
+      const cityState: CityState | null = values.zipCode
+        ? await getCityStateFromZip(values.zipCode)
+        : null;
+
+      if (!cityState) {
+        throw new Error(
+          "Could not fetch city/state for the provided ZIP code."
+        );
+      }
+
       // Save additional data to Firestore
       const db = getFirestore();
       await setDoc(doc(db, "users", user.uid), {
         firstName: values.firstName,
         lastName: values.lastName,
         zipCode: values.zipCode,
+        city: cityState.city,
+        state: cityState.state,
       });
 
       console.log("User signed up:", {
@@ -48,6 +62,8 @@ const SignUp: React.FC = () => {
         firstName: values.firstName,
         lastName: values.lastName,
         zipCode: values.zipCode,
+        city: cityState.city,
+        state: cityState.state,
       });
 
       router.push("/dashboard");
