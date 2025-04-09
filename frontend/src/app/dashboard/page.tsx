@@ -1,17 +1,15 @@
 import React from "react";
 import { Row, Col, Card } from "antd";
 
-// 1. Import your images
-import image1 from "./image/image1.png";
-import image2 from "./image/image2.png";
-import image3 from "./image/image3.png";
-import image4 from "./image/image4.png";
-import image5 from "./image/image5.png";
-import image6 from "./image/image6.png";
-import image7 from "./image/image7.png";
-import image8 from "./image/image8.png";
+import image1 from "../../../public/image/image1.png";
+import image2 from "../../../public/image/image2.png";
+import image3 from "../../../public/image/image3.png";
+import image4 from "../../../public/image/image4.png";
+import image5 from "../../../public/image/image5.png";
+import image6 from "../../../public/image/image6.png";
+import image7 from "../../../public/image/image7.png";
+import image8 from "../../../public/image/image8.png";
 
-// 2. Create an array to map over
 const images = [image1, image2, image3, image4, image5, image6, image7, image8];
 
 const DashBoard: React.FC = () => {
