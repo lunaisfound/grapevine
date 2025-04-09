@@ -41,12 +41,22 @@ interface UserInfo {
 
 interface CommentWithUser extends Comment {
   user: UserInfo | null;
+  tag?: string;
 }
 
 const Forum = (): React.JSX.Element => {
   const [uid, setUid] = useState<string>();
   const [comments, setComments] = useState<CommentWithUser[]>([]);
   const router = useRouter();
+
+  const tagColors: Record<string, string> = {
+    "International Foods": "#fef08a",
+    "Cafe Suggestions": "#c1f0db",
+    "Best Places to Eat": "#ffd6a5",
+    "Vegan & Healthy Options": "#d3f261",
+    "Community": "#ffccc7",
+  };
+  
 
   //  Auth check for user
   useEffect(() => {
@@ -139,6 +149,7 @@ const Forum = (): React.JSX.Element => {
                   color: "#000",
                   fontWeight: 600,
                 }}
+                onClick={() => router.push("/newpost")}
               >
                 What do you think?
               </Button>
@@ -168,9 +179,18 @@ const Forum = (): React.JSX.Element => {
                       </Text>
                     </Col>
                     <Col>
-                      <Button shape="round" icon={<MessageOutlined />}>
-                        Community
-                      </Button>
+                    <Button
+                      shape="round"
+                      icon={<MessageOutlined />}
+                      style={{
+                        backgroundColor: comment.tag !== undefined ? tagColors[comment.tag] : "#fef08a",
+                        borderColor: "transparent",
+                        color: "#000",
+                      }}
+                    >
+                      {comment.tag || "General"}
+                    </Button>
+
                     </Col>
                   </Row>
                   <Paragraph style={{ fontWeight: 600 }}>
