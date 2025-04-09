@@ -3,7 +3,7 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -49,7 +49,7 @@ a {
 
 .account-dropdown .ant-dropdown-menu {
   margin-top: 12px;
-  background-color: #FFF7BA !important;
+  background-color: #fff7ba !important;
   border-radius: 16px;
   padding: 12px;
   width: 260px;

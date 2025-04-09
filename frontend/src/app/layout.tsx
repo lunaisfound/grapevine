@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import NavigationBar from "../components/NavigationBar";
-import DashBoard from "./dashboard/page";
 import "./globals.css";
 
 interface LayoutProps {
@@ -12,7 +11,6 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <body>
         <NavigationBar />
-        <DashBoard />
         {children}
       </body>
     </html>
