@@ -13,7 +13,7 @@ Inspired by classic internet forums and reimagined with modern web technologies,
 - **Frontend:** TypeScript, React, Ant Design, CSS
 - **Backend:** Firebase, Firestore, Firebase Authentication
 - **Design:** Figma
-- **Other:** Next.js
+- **Server-side Rendering:** Next.js
 
 ## 📦 Installation
 
