@@ -3,13 +3,6 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 html,
 body {
   max-width: 100vw;
@@ -49,7 +42,7 @@ a {
 
 .account-dropdown .ant-dropdown-menu {
   margin-top: 12px;
-  background-color: #FFF7BA !important;
+  background-color: #fff7ba !important;
   border-radius: 16px;
   padding: 12px;
   width: 260px;

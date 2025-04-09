@@ -86,31 +86,33 @@ export default function NavItems() {
     {
       key: "forum",
       label: (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <BellOutlined
+        <Link href="../forum">
+          <div
             style={{
-              fontSize: 20,
-              color: current === "forum" ? "#61572D" : "#000",
-            }}
-          />
-          <span
-            style={{
-              fontSize: 12,
-              lineHeight: "16px",
-              fontWeight: 500,
-              color: "#3d361c",
-              marginTop: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            Forum
-          </span>
-        </div>
+            <BellOutlined
+              style={{
+                fontSize: 20,
+                color: current === "forum" ? "#61572D" : "#000",
+              }}
+            />
+            <span
+              style={{
+                fontSize: 12,
+                lineHeight: "16px",
+                fontWeight: 500,
+                color: "#3d361c",
+                marginTop: 4,
+              }}
+            >
+              Forum
+            </span>
+          </div>
+        </Link>
       ),
       style: {
         borderRadius: 20,
