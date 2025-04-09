@@ -1,11 +1,17 @@
 {
+  "name": "your-backend",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
   "dependencies": {
-    "express": "^5.1.0",
     "firebase": "^11.6.0",
     "typescript": "^5.8.2"
   },
   "devDependencies": {
-    "@types/express": "^5.0.1",
     "@types/node": "^22.13.17"
   }
 }

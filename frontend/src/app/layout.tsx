@@ -17,11 +17,7 @@ export default function RootLayout({ children }: LayoutProps) {
   
   return (
     <html lang="en">
-      <body>
-        <NavigationBar />
-        {!isAddProductPage && <DashBoard />}
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
