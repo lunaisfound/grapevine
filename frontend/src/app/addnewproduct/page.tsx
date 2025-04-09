@@ -8,6 +8,7 @@ import { db, auth } from "@/lib/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import NavigationBar from "@/components/NavigationBar";
+import BackButton from "@/components/BackButton/BackButton";
 
 const { RangePicker } = DatePicker;
 
@@ -100,6 +101,7 @@ const AddNewProduct = () => {
       <NavigationBar uid={uid} />
 
       <div style={{ padding: "50px" }}>
+      <BackButton />
         <h2
           style={{
             fontSize: 40,

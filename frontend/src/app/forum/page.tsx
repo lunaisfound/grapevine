@@ -29,6 +29,7 @@ import { Comment } from "../../../../backend/models/comment";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import NavigationBar from "@/components/NavigationBar";
+import BackButton from "@/components/BackButton/BackButton";
 
 const { Text, Paragraph } = Typography;
 
@@ -106,6 +107,7 @@ const Forum = (): React.JSX.Element => {
     <div>
       <NavigationBar uid={uid}/>
       <div className="w-full flex justify-center bg-white min-h-screen">
+        <BackButton/>
         <div
           className="w-full"
           style={{ maxWidth: 1280, padding: "32px 32px 64px" }}
