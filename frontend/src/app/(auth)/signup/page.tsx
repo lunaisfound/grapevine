@@ -185,7 +185,7 @@ const SignUp: React.FC = () => {
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
                   Not a customer?{" "}
-                  <Link href="" style={{ fontWeight: 500 }}>
+                  <Link href="/business-name" style={{ fontWeight: 500 }}>
                     Sign Up for Business
                   </Link>
                 </Typography.Text>

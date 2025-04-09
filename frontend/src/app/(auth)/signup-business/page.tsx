@@ -17,6 +17,7 @@ import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Link from "next/link";
 
 const { Title } = Typography;
 
@@ -212,18 +213,18 @@ export default function SignupBusiness() {
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
                   Already have an account?{" "}
-                  <a href="/login" style={{ fontWeight: 500 }}>
+                  <Link href="/login" style={{ fontWeight: 500 }}>
                     Login
-                  </a>
+                  </Link>
                 </Typography.Text>
               </div>
 
               <div style={{ textAlign: "right", marginTop: 16 }}>
                 <Typography.Text type="secondary" style={{ fontSize: 16 }}>
-                  Not a customer?{" "}
-                  <a href="" style={{ fontWeight: 500 }}>
-                    Sign Up for Grapevine Business
-                  </a>
+                  Want to shop?{" "}
+                  <Link href="/signup-business" style={{ fontWeight: 500 }}>
+                    Sign Up as Customer
+                  </Link>
                 </Typography.Text>
               </div>
             </div>
