@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, FileUnknownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Image, Rate, Row, Table, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../../firebaseConfig";
+import { db } from "@/lib/firebaseConfig";
 import Title from "antd/es/typography/Title";
 import NavigationBar from "@/components/NavigationBar";
 import axios from "axios";
@@ -129,19 +129,6 @@ const ViewBusiness = () => {
     },
   ];
 
-  async function getCityState(zipCode: number) {
-    try {
-      const response = await axios.get(
-        `https://api.zippopotam.us/us/${zipCode}`
-      );
-      const { city, state } = response.data.places[0];
-      return { city, state };
-    } catch (error) {
-      console.error("Error fetching city/state:", error);
-      return null;
-    }
-  }
-
   return (
     <>
       <NavigationBar uid={storeData.owner_id} />
@@ -174,10 +161,16 @@ const ViewBusiness = () => {
                 width="100%"
                 src={storeData.imageUrl}
                 alt={storeData.name}
-                style={{ borderRadius: "8px", maxHeight: "60vh" }}
+                style={{ borderRadius: "8px", maxHeight: "70vh" }}
               />
             ) : (
-              <p>No image available</p>
+              <FileUnknownOutlined
+                style={{
+                  width: "100%",
+                  borderRadius: "8px",
+                  fontSize: "3rem",
+                }}
+              />
             )}
             <Title level={3} style={{ marginTop: 16 }}>
               {storeData.name}

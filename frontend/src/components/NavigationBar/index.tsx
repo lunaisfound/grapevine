@@ -8,8 +8,7 @@ import AccountDropdown from "./AccountDropdown";
 import { Layout, Space } from "antd";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebaseConfig";
-import { useSearchParams } from "next/navigation";
+import { db } from "@/lib/firebaseConfig";
 
 const { Header } = Layout;
 
