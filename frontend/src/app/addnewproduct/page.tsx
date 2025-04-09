@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Input, Button, DatePicker, Upload, message, Space } from 'antd';
-import { UploadOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import dayjs from 'dayjs';
-import axios from 'axios';
+import { Input, Button, DatePicker, message, Space } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../../firebaseConfig';
 
 const { RangePicker } = DatePicker;
 
@@ -33,7 +32,7 @@ const AddNewProduct = () => {
       name: productName,
       quantity,
       price,
-      imageUrl
+      imageUrl,
     };
     setProducts([...products, newProduct]);
     setProductName('');
@@ -50,28 +49,23 @@ const AddNewProduct = () => {
 
   const handlePost = async () => {
     const [startDate, endDate] = dateRange || [];
+    const storeId = 'store-abc123';
+
     try {
-        const storeId = 'store-abc123'; // You can replace this with a dynamic storeId from user/session
+      const productData = {
+        name: products[0]?.name,
+        quantity: products[0]?.quantity,
+        price: products[0]?.price,
+        startDate: startDate ? new Date(startDate).toISOString() : null,
+        endDate: endDate ? new Date(endDate).toISOString() : null,
+        imageUrl: products[0]?.imageUrl,
+        isDraft: false,
+        createdBy: 'user_id_or_email',
+      };
 
-        const res = await fetch(`http://localhost:5000/${storeId}/products`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: products[0]?.name,
-            quantity: products[0]?.quantity,
-            price: products[0]?.price,
-            startDate: startDate ? new Date(startDate).toISOString() : null,
-            endDate: endDate ? new Date(endDate).toISOString() : null,
-            imageUrl: products[0]?.imageUrl,
-            isDraft: false,
-            createdBy: 'user_id_or_email',
-          }),
-        });
-        
-
-        const data = await res.json();
-        console.log(data);
-        message.success('Product posted successfully!');
+      const docRef = await addDoc(collection(db, `stores/${storeId}/products`), productData);
+      console.log('Document written with ID: ', docRef.id);
+      message.success('Product posted successfully!');
     } catch (err) {
       console.error('Error:', err);
       message.error('Failed to post product');
