@@ -66,7 +66,9 @@ export default function AccountDropdown({
           {
             key: "add",
             icon: <EditOutlined />,
-            label: <span style={{ fontWeight: 500 }}>Add new products</span>,
+            label: <span style={{ fontWeight: 500 }}
+            onClick={() => router.push("/addnewproduct")}
+              >Add new products</span>,
           },
         ]
       : []),
