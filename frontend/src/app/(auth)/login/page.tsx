@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { Form, Input, Button, Row, Col, Typography, Layout, Alert } from "antd";
 import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
-import axios from "axios";
 import Link from "next/link";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -27,13 +27,20 @@ const Login = () => {
 
       console.log("User signed in:", user);
 
-      const response = await axios.get(
-        `http://localhost:5000/api/users/${user.uid}`
-      );
-      const userData = response.data;
-      console.log(userData);
+      // Get Firestore instance
+      const db = getFirestore();
 
-      router.push("/dashboard");
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        const userData = { id: userDoc.id, ...userDoc.data() };
+        console.log("User data:", userData);
+
+        router.push("/dashboard");
+      } else {
+        throw new Error("User not found");
+      }
     } catch (error: any) {
       console.error("Error during login:", error.message);
     }

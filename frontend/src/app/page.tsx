@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import { useEffect, useState } from "react";
@@ -29,11 +28,4 @@ export default function Home() {
   if (!isLoggedIn) return <Login />;
 
   return null;
-=======
-// import Image from "next/image";
-import styles from "./page.module.css";
-
-export default function Home() {
-  return <div className={styles.page}></div>;
->>>>>>> d65d6f9ac39b85045ebb346cf0a5c9fc3e0efb28
 }
