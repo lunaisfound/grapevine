@@ -24,6 +24,7 @@ import {
 } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
+import { CityState, getCityStateFromZip } from "../../utils/zipcodeUtils";
 
 const { Title } = Typography;
 
@@ -35,12 +36,13 @@ export default function SignupBusiness() {
   const businessName = searchParams.get("businessName") || "";
 
   const handleSignUp = async (values: {
-    businessNam: string;
+    businessName: string;
     firstName: string;
     lastName: string;
     email: string;
     password: string;
     zipCode?: string;
+    isBusiness: boolean;
   }) => {
     setLoading(true);
     setError(null);
@@ -53,12 +55,26 @@ export default function SignupBusiness() {
       );
       const user = userCredential.user;
 
+      // Fetch city and state based on zip code
+      const cityState: CityState | null = values.zipCode
+        ? await getCityStateFromZip(values.zipCode)
+        : null;
+
+      if (!cityState) {
+        throw new Error(
+          "Could not fetch city/state for the provided ZIP code."
+        );
+      }
+
       // Save additional data to Firestore
       const db = getFirestore();
       await setDoc(doc(db, "users", user.uid), {
         firstName: values.firstName,
         lastName: values.lastName,
         zipCode: values.zipCode,
+        city: cityState.city,
+        state: cityState.state,
+        isBusiness: true,
       });
 
       const storeRef = await addDoc(collection(db, "stores"), {
@@ -67,6 +83,8 @@ export default function SignupBusiness() {
         zipCode: values.zipCode,
         owner_id: user.uid,
         name: businessName,
+        city: cityState.city,
+        state: cityState.state,
       });
 
       // Optionally, you can now retrieve the generated ID
