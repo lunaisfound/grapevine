@@ -30,6 +30,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import NavigationBar from "@/components/NavigationBar";
 import BackButton from "@/components/BackButton/BackButton";
+import { getRandomAvatar } from "../utils/getRandomAvatar";
 
 const { Text, Paragraph } = Typography;
 
@@ -161,10 +162,7 @@ const Forum = (): React.JSX.Element => {
               <Divider />
               <Row gutter={16}>
                 <Col>
-                  <Avatar
-                    src={comment.user?.avatar || "/default-avatar.png"}
-                    size={50}
-                  />
+                  <Avatar src={getRandomAvatar()} />
                 </Col>
                 <Col flex="auto">
                   <Row justify="space-between">
