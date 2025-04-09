@@ -15,7 +15,13 @@ import {
 import { Content } from "antd/es/layout/layout";
 import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 
@@ -55,12 +61,19 @@ export default function SignupBusiness() {
         zipCode: values.zipCode,
       });
 
-      await setDoc(doc(db, "stores", businessName), {
+      const storeRef = await addDoc(collection(db, "stores"), {
         firstName: values.firstName,
         lastName: values.lastName,
         zipCode: values.zipCode,
         owner_id: user.uid,
+        name: businessName,
       });
+
+      // Optionally, you can now retrieve the generated ID
+      const storeId = storeRef.id;
+
+      // Optionally, you can use this ID in other parts of your app
+      console.log("Store ID:", storeId);
 
       router.push("/dashboard");
     } catch (error: any) {
