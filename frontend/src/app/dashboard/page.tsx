@@ -78,6 +78,11 @@ const DashBoard: React.FC = () => {
     };
   }, [router]);
 
+  const getRandomImage = () => {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex].src;
+  };  
+
   if (uid === undefined) {
     return <div>Loading...</div>;
   }
@@ -110,27 +115,18 @@ const DashBoard: React.FC = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        border: store.imageUrl ? "none" : "1px solid #000", // Conditional border
+                        border: "none", 
                         borderRadius: "8px",
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.05)", 
                       }}
                     >
-                      {store.imageUrl ? (
-                        <Image
-                          width="100%"
-                          src={store.imageUrl}
-                          alt={store.name}
-                          style={{ border: "none", borderRadius: "8px" }}
-                          preview={false}
-                        />
-                      ) : (
-                        <FileUnknownOutlined
-                          style={{
-                            width: "100%",
-                            borderRadius: "8px",
-                            fontSize: "3rem",
-                          }}
-                        />
-                      )}
+                      <Image
+                        width="100%"
+                        src={store.imageUrl || getRandomImage()}
+                        alt={store.name}
+                        style={{ border: "none", borderRadius: "8px", objectFit: "cover" }}
+                        preview={false}
+                      />
                     </Card>
 
                     <Typography.Text

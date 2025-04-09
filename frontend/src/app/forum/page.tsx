@@ -193,7 +193,10 @@ const Forum = (): React.JSX.Element => {
 
                     </Col>
                   </Row>
-                  <Paragraph style={{ fontWeight: 600 }}>
+                  <Paragraph
+                    style={{ fontWeight: 600, cursor: "pointer" }}
+                    onClick={() => router.push(`/forum/${comment.id}`)}
+                  >
                     {comment.header}
                   </Paragraph>
                   <Paragraph>{comment.text}</Paragraph>
