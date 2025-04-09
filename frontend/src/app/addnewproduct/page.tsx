@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, DatePicker, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { db, auth } from "@/lib/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -70,20 +70,30 @@ const AddNewProduct = () => {
 
   const handlePost = async () => {
     const [startDate, endDate] = dateRange || [];
-    const storeId = "store-abc123";
-
+  
     try {
+      const storeQuery = query(collection(db, "stores"), where("owner_id", "==", uid));
+      const storeSnapshot = await getDocs(storeQuery);
+  
+      if (storeSnapshot.empty) {
+        message.error("No store found for this user.");
+        return;
+      }
+  
+      const storeDoc = storeSnapshot.docs[0]; 
+      const storeId = storeDoc.id;
+  
       const productData = {
         name: products[0]?.name,
         quantity: products[0]?.quantity,
         price: products[0]?.price,
-        startDate: startDate ? new Date(startDate).toISOString() : null,
-        endDate: endDate ? new Date(endDate).toISOString() : null,
+        startDate: startDate?.toDate() || null,
+        endDate: endDate?.toDate() || null,
         imageUrl: products[0]?.imageUrl,
         isDraft: false,
         createdBy: uid,
       };
-
+  
       const docRef = await addDoc(
         collection(db, `stores/${storeId}/products`),
         productData
