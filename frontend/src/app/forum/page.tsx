@@ -15,7 +15,7 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { db } from "../../../firebaseClient";
+import { db } from "@/lib/firebaseConfig";
 import { Comment } from "../../../../backend/models/comment";
 
 const { Text, Paragraph } = Typography;
