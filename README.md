@@ -38,7 +38,7 @@ Inspired by classic internet forums and reimagined with modern web technologies,
 
 4. Set up your Firebase credentials:
 
-   - Add your Firebase config to `firebaseConfig.ts`
+   - Add your Firebase config to `firebaseConfig.ts` for both backend and frontend
    - Make sure Firestore is enabled in your Firebase project
 
 5. Run the dev server:
