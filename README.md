@@ -60,4 +60,4 @@ The team behind this application is the Demure Tea Enjoyers! We are:
 
 1. Lunark Vu @lunaisfound
 2. Laura Bui @giaobui2204
-3. Hoang Anh @Anhakian
+3. Anh Nguyen @Anhakian
